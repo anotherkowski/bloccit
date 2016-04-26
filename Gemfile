@@ -15,6 +15,8 @@ source 'https://rubygems.org'
  group :development do
    #use sqlite3 for our Development environment because it is an easy to use database perfect for rapid testing
    gem 'sqlite3'
+   # Adding Pry (Assignment 29) which adds extra features unavailable in IRB shell
+   gem 'pry-rails'
  end
 
  group :development, :test do
