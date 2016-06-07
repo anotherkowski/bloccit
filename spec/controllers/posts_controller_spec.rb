@@ -21,7 +21,26 @@ RSpec.describe PostsController, type: :controller do
     # end
   end
 
-
+  describe "replace first and fifth titles with 'SPAM'" do
+    # before do
+    #   Post.create!(title: "Post 1 title", body: "Post 1 body")
+    #   Post.create!(title: "Post 2 title", body: "Post 2 body")
+    #   Post.create!(title: "Post 3 title", body: "Post 3 body")
+    #   Post.create!(title: "Post 4 title", body: "Post 4 body")
+    #   Post.create!(title: "Post 5 title", body: "Post 5 body")
+    #   Post.create!(title: "Post 6 title", body: "Post 6 body")
+    #   Post.create!(title: "Post 7 title", body: "Post 7 body")
+    # end
+    it "replaces the first title with 'SPAM'" do
+      expect(Post.first.title).to eq('SPAM')
+    end
+    it "replaces the sixth title with 'SPAM'" do # because the 6th title is the fifth title after the first title
+      expect(Post.all[5].title).to eq('SPAM')
+    end
+    it "does not replace other post titles with 'SPAM'" do
+      expect(Post.last.title).to_not eq('SPAM')
+    end
+  end
 
   # Browser sends, server receives, HTTP request
   # DELETE /posts/5
