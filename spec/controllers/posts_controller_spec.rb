@@ -4,6 +4,7 @@ RSpec.describe PostsController, type: :controller do
 
   let(:my_post) { Post.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph)}
 
+
   describe "GET #index" do
     it "returns http success" do
       get :index
@@ -15,10 +16,10 @@ RSpec.describe PostsController, type: :controller do
       expect(assigns(:posts)).to eq([my_post])
     end
 
-    # it "renders the posts index view" do
-    #   get :index
-    #   expect(response).to render_template('posts/index')
-    # end
+    it "renders the posts index view" do
+      get :index
+      expect(response).to render_template('posts/index')
+    end
   end
 
   describe "GET new" do
@@ -67,35 +68,60 @@ RSpec.describe PostsController, type: :controller do
     end
   end
 
-  # Browser sends, server receives, HTTP request
-  # DELETE /posts/5
+  describe "GET #edit" do
+    it "returns http success" do
+      get :edit, {id: my_post.id}
+      expect(response).to have_http_status(:success)
+    end
+    it "renders the #edit view" do
+      get :edit, {id: my_post.id}
+      expect(response).to render_template :edit
+    end
+    it "assigns post to be updated to @post" do
+      get :edit, {id: my_post.id}
 
-  # routes.rb
-  # delete '/posts/:id', to: 'posts#destroy'
+      post_instance = assigns(:post)
 
-  # posts_controller.rb
-  # params = {id: 5}
-  # class PostsController
-  #   def destroy
+      expect(post_instance.id).to eq my_post.id
+      expect(post_instance.title).to eq my_post.title
+      expect(post_instance.body).to eq my_post.body
+    end
+  end
 
-  # describe "DELETE destroy" do
-  #   let(:my_post) {Post.create!(title: 'my post', description: 'my post')}
-  #   it "returns http redirect to posts index" do
-  #     delete(:destroy, {id: my_post.id})
-  #     expect(response).to redirect_to(posts_path)
-  #   end
-  #
-  #   it "deletes the specified post" do
-  #     delete(:destroy, {id: my_post.id})
-  #     expect(Post.where(id: my_post.id)).to be_empty
-  #   end
-  # end
+  describe "PUT update" do
+    it "updates post with expected attributes" do
+      new_title = RandomData.random_sentence
+      new_body = RandomData.random_paragraph
 
-  # describe "GET #edit" do
-  #   it "returns http success" do
-  #     get :edit
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
+      put :update, id: my_post.id, post: {title: new_title, body: new_body}
+
+      updated_post = assigns(:post)
+      expect(updated_post.id).to eq my_post.id
+      expect(updated_post.title).to eq new_title
+      expect(updated_post.body).to eq new_body
+    end
+
+    it "redirects to the updated post" do
+      new_title = RandomData.random_sentence
+      new_body = RandomData.random_paragraph
+
+      put :update, id: my_post.id, post: {title: new_title, body: new_body}
+
+      expect(response).to redirect_to my_post
+    end
+  end
+
+  describe "DELETE destroy" do
+    it "deletes the post" do
+      delete :destroy, {id: my_post.id}
+      count = Post.where({id: my_post.id}).size
+      expect(count).to eq 0
+    end
+    
+    it "redirects to posts index" do
+      delete :destroy, {id: my_post.id}
+      expect(response).to redirect_to posts_path
+    end
+  end
 
 end

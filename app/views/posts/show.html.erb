@@ -2,4 +2,12 @@
 <p>Find me in app/views/posts/show.html.erb</p>
 
 <h1><%= @post.title %></h1>
-<p><%= @post.body %></p>
+
+<div class="row">
+  <div class="col-md-8">
+    <p><%= @post.body %></p>
+  </div>
+  <div class="col-md-4">
+    <%= link_to "Edit", edit_post_path(@post), class: 'btn btn-success' %>
+  </div>
+</div>

@@ -13,7 +13,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new
-    @post.title = params[:post][:title]
+    @post.title = params[:post][:title] 
     @post.body = params[:post][:body]
 
     if @post.save
@@ -26,5 +26,21 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])
   end
+
+  def update
+    @post = Post.find(params[:id])
+    @post.title = params[:post][:title]
+    @post.body = params[:post][:body]
+
+    if @post.save
+      flash[:notice] = "Post was updated successfully"
+      redirect_to @post
+    else
+      flash.now[:alert] = "There was an error saving the post. Please try again."
+      render :edit
+    end
+  end
+
 end
