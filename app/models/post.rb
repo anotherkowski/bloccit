@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   # def Post.write_spam!
   #   Post.all.each_with_index do | post, index |
