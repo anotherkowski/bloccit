@@ -87,7 +87,7 @@ RSpec.describe QuestionsController, type: :controller do
     it "updates question with expected attributes" do
       new_title = RandomData.random_sentence
       new_body = RandomData.random_paragraph
-      new_resolved = ["true","false"].sample
+      new_resolved = [true,false].sample
 
       put :update, id: my_question.id, question: {title: new_title, body: new_body, resolved: new_resolved}
 
@@ -102,7 +102,7 @@ RSpec.describe QuestionsController, type: :controller do
     it "redirects to the updated post" do
       new_title = RandomData.random_sentence
       new_body = RandomData.random_paragraph
-      new_resolved = ["true","false"].sample
+      new_resolved = [true,false].sample
 
       put :update, id: my_question.id, question: {title: new_title, body: new_body, resolved: new_resolved}
 
