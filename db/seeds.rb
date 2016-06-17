@@ -24,6 +24,17 @@ posts = Post.all
   )
 end
 
+# Create Questions
+50.times do
+  Question.create!( # Adding a ! instructs the method to raise an error if there's a problem with the data we're seeding.
+  title: RandomData.random_sentence,
+  body: RandomData.random_paragraph,
+  resolved: ["true","false"].sample
+  )
+end
+questions = Question.all
+
 puts "Seed finished"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
+puts "#{Question.count} questions created"

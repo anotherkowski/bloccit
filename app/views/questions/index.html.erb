@@ -1,0 +1,11 @@
+<h1>All Questions</h1>
+
+<% @questions.each do |q| %>
+<div class="media">
+   <div class="media-body">
+     <h4 class="media-heading">
+       <%= link_to q.title, q %> | <small><%= q.resolved %></small>
+     </h4>
+   </div>
+ </div>
+<% end %>
