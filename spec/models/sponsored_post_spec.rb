@@ -9,7 +9,7 @@ RSpec.describe SponsoredPost, type: :model do
   let(:title) {RandomData.random_sentence}
   let(:body) {RandomData.random_paragraph}
   let(:price) {rand(100)}
-  let(:sponsoredpost) {topic.sponsoredposts.create!(title: title, body: body, price: price)}
+  let(:sponsoredpost) {topic.sponsored_posts.create!(title: title, body: body, price: price)}
   # Expect test sponsored post to have a parent topic
   it {is_expected.to belong_to(:topic)}
 
