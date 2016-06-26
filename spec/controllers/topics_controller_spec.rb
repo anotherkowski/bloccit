@@ -12,6 +12,10 @@ RSpec.describe TopicsController, type: :controller do
       get :index
       expect(assigns(:topics)).to eq([my_topic])
     end
+    it "renders the index view" do
+      get :index
+      expect(response).to render_template(:index)
+    end
   end
 
   describe "GET show" do
