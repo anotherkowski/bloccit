@@ -1,0 +1,27 @@
+<%= form_for [topic, sponsored_post] do |f| %>
+   <% if sponsored_post.errors.any? %>
+   <div class="alert alerg-danger">
+     <h4><%= pluralize(sponsored_post.errors.count, "error")%>.</h4>
+     <ul>
+       <% sponsored_post.errors.full_messages.each do |msg| %>
+       <li><%= msg %></li>
+       <% end %>
+     </ul>
+   </div>
+   <% end %>
+   <%= form_group_tag(sponsored_post.errors[:title]) do %>
+     <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control', placeholder: "Enter sponsored post title" %>
+    <% end %>
+    <%= form_group_tag(sponsored_post.errors[:body]) do %>
+     <%= f.label :body %>
+     <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter sponsored post body" %>
+     <% end %>
+     <%= form_group_tag(sponsored_post.error[:price]) do %>
+        <%= f.label :price %>
+        <%= f.number_field :price, class: 'form-control' %>
+     <% end %>
+  <div class="form-group">
+     <%= f.submit "Save", class: 'btn btn-success' %>
+   </div>
+ <% end %>
