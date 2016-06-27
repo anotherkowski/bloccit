@@ -4,6 +4,21 @@
 <div class="row">
   <div class="col-md-8">
     <p class="lead"><%= @topic.description %></p>
+    <!-- Iterate over the sponsored posts belonging to @topic to display each sponsored post -->
+      <% @topic.sponsored_posts.each do |sponsored_post| %>
+          <div class="media">
+            <div class="media-body">
+              <h4 class="media-heading">
+                <span class="label label-primary">Sponsored</span>
+                <%= link_to sponsored_post.title, topic_sponsored_post_path(@topic, sponsored_post) %>
+              </h4>
+              <small>
+                submitted <%= time_ago_in_words(sponsored_post.created_at) %> ago &raquo; price $<%= sponsored_post.price %>
+              </small>
+            </div>
+          </div>
+        <% end %>
+    </div>
 <!-- Iterate over the posts belonging to @topic to display each post -->
     <% @topic.posts.each do |post| %>
       <div class="media">
@@ -18,26 +33,6 @@
         </div>
       </div>
     <% end %>
-
-    <!-- Iterate over the posts belonging to @topic to display each post -->
-    <!-- HIDE AND DEBUG ....
-      <%# @topic.sponsored_posts.each do |post| %>
-          <div class="media">
-            <div class="media-body">
-              <h4 class="media-heading">
-                <span class="label label-primary">Sponsored</span>
-                <%#= link_to sponsoredpost.title, topic_sponsored_post_path(@topic, sponsoredpost) %>
-              </h4>
-              <small>
-                submitted <%#= time_ago_in_words(sponsoredpost.created_at) %> ago <br>
-                <%#= sponsoredpost.comments.count %> Comments
-              </small>
-            </div>
-          </div>
-        <%# end %>
-        .... -->
-        
-  </div>
   <div class="col-md-4">
     <%= link_to "New Post", new_topic_post_path(@topic), class: 'btn btn-success' %>
     <%= link_to "New Sponsored Post", new_topic_sponsored_post_path(@topic), class: 'btn btn-success' %>
