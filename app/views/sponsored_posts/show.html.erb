@@ -2,7 +2,7 @@
 <p>Find me in app/views/sponsored_posts/show.html.erb</p>
 
 <h1><%= @sponsored_post.title %> <small>$<%= @sponsored_post.price %></small></h1>
-
+<h4><%= link_to "back to Topic", [@sponsored_post.topic] %></h4>
 <div class="row">
   <div class="col-md-8">
     <p><%= @sponsored_post.body %></p>

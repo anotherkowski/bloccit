@@ -17,7 +17,7 @@
      <%= f.label :body %>
      <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter sponsored post body" %>
      <% end %>
-     <%= form_group_tag(sponsored_post.error[:price]) do %>
+     <%= form_group_tag(sponsored_post.errors[:price]) do %>
         <%= f.label :price %>
         <%= f.number_field :price, class: 'form-control' %>
      <% end %>
