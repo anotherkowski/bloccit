@@ -33,17 +33,13 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "user name" do
-    let(:user_with_lowercase_name) {User.new(name: "ann novakowski", email: "ann@annhnova.com")}
+  describe "name" do
+    let(:user_with_lowercase_name) {User.new(name: "ann novakowski", email: "ann@annhnova.com", password_digest: "password")}
 
-    it "has a space between first and last name" do
-      it {should include(" ")}
-    end
-    it "has capitalized first name" do
-      expect(user_with_lowercase_name.name.split(" ")[0]).to eq("Ann")
-    end
-    it "has capitalized last name" do
-      expect(user_with_lowercase_name.name.split(" ")[1]).to eq("Novakowski")
+    it "should capitalize first and last names with space inbetween" do
+      user_with_lowercase_name.save!
+      expect(user_with_lowercase_name.name).to eq("Ann Novakowski")
     end
   end
+
 end
