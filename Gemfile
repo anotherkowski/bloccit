@@ -36,3 +36,5 @@ source 'https://rubygems.org'
  gem 'turbolinks'
  # Install bootstrap
  gem 'bootstrap-sass'
+# Install BCrypt to encrypt passwords for users
+gem 'bcrypt'
