@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:notice] = "Welcome to Bloccit #{@user.name}!"
-      redirect_to root_path #redirect to the confirm page
+      redirect_to rooth_path #redirect to the confirm page
     else
       flash.now[:alert] = "There was an error creating your account. Please try again."
       render :new
@@ -26,12 +26,12 @@ class UsersController < ApplicationController
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
 
-    if @user.save
-      flash[:notice] = "Welcome to Bloccit #{@user.name}!"
-      redirect_to users_path
-    else
-      flash.now[:alert] = "There was an error creating your account. Please try again."
-      render :new
-    end
+    # if @user.save
+    #   flash[:notice] = "Welcome to Bloccit #{@user.name}!"
+    #   redirect_to root_path
+    # else
+    #   flash.now[:alert] = "There was an error creating your account. Please try again."
+    #   render :new
+    # end
   end
 end
