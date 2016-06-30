@@ -4,13 +4,13 @@
 <h4>Are you sure these values are correct?</h4>
 <%= form_for @user do |f| %>
   <div class="form-group">
-    <p>Email: <%= :email %></p>
-    <p>Name: <%= :name %></p>
+    <p><strong>Name:</strong> <%= @user.name %></p>
+    <p><strong>Email:</strong> <%= @user.email %></p>
   </div>
   <div class="form-group">
     <p>
     <%= button_to "Yes", {controller: "users", action: "create", params: params}, class:'btn btn-success' %>
-    <%= button_to "No", {controller: "users", action: "new"}, class: 'btn btn-danger' %>
+    <%= button_to "No", {controller: "users", action: "new", params: params}, :method => :get, class: 'btn btn-danger' %>
     </p>
   </div>
 <% end %>
