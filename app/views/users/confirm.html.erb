@@ -1,6 +1,6 @@
 <h2>Sign Up Confirmation</h2>
 <h4>Are you sure these values are correct?</h4>
-<%= form_for @user, :url => {:action => :confirm} do |f| %>
+<%= form_for @user do |f| %>
   <div class="form-group">
     <p>Email: <%= f.email %></p>
     <p>Name: <%= f.name %></p>
