@@ -1,18 +1,18 @@
 <h2>Sign Up Confirmation</h2>
-<div class="row">
-  <div class="col-md-8">
-<h4>Are you sure these values are correct?</h4>
-<%= form_for @user do |f| %>
-  <div class="form-group">
-    <p><strong>Name:</strong> <%= @user.name %></p>
-    <p><strong>Email:</strong> <%= @user.email %></p>
+  <div class="row">
+    <div class="col-md-8">
+        <h4>Are you sure these values are correct?</h4>
+        <div class="well">
+          <p>Name: <%= @user.name %></p>
+          <p>Email: <%= @user.email %></p>
+        </div>
+    </div>
   </div>
-  <div class="form-group">
-    <p>
-    <%= button_to "Yes", {controller: "users", action: "create", params: params}, class:'btn btn-success' %>
-    <%= button_to "No", {controller: "users", action: "new", params: params}, :method => :get, class: 'btn btn-danger' %>
-    </p>
+  <div class="row">
+    <div class="col-xs-1">
+      <%= button_to "Yes", {controller: "users", action: "create", params: params}, class:'btn btn-success' %>
+    </div>
+    <div class="col-xs-1">
+      <%= button_to "No", {controller: "users", action: "new", params: params}, :method => :get, class: 'btn btn-danger' %>
+    </div>
   </div>
-<% end %>
-</div>
-</div>
