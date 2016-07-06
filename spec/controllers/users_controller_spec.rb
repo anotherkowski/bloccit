@@ -7,7 +7,7 @@ RSpec.describe UsersController, type: :controller do
       email: "blochead@bloc.io",
       password: "blochead",
       password_confirmation: "blochead",
-      avatar_url: "http://gravatar.com/avatar/bb6d1172212c180cfbdb7039129d7b03.png?s=48"
+      gravatar_id: "http://gravatar.com/avatar/bb6d1172212c180cfbdb7039129d7b03.png?s=48"
     }
   end
 
@@ -52,7 +52,7 @@ RSpec.describe UsersController, type: :controller do
      end
      it "retrieves the user gravatar image properly" do
        post :create, user: new_user_attributes
-       expect(assigns(:user).avatar_url).to eq new_user_attributes[:avatar_url]
+       expect(assigns(:user).gravatar_id).to eq new_user_attributes[:gravatar_id]
      end
   end
 end
