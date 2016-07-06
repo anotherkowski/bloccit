@@ -6,7 +6,8 @@ RSpec.describe UsersController, type: :controller do
       name: "Blochead",
       email: "blochead@bloc.io",
       password: "blochead",
-      password_confirmation: "blochead"
+      password_confirmation: "blochead",
+      avatar_url: "http://gravatar.com/avatar/bb6d1172212c180cfbdb7039129d7b03.png?s=48"
     }
   end
 
@@ -20,6 +21,7 @@ RSpec.describe UsersController, type: :controller do
       expect(assigns(:user)).to_not be_nil
     end
   end
+
   describe "POST create" do
     it "returns an http redirect" do
       post :create, user: new_user_attributes
@@ -47,6 +49,10 @@ RSpec.describe UsersController, type: :controller do
      it "logs the user in after sign up" do
        post :create, user: new_user_attributes
        expect(session[:user_id]).to eq assigns(:user).id
+     end
+     it "retrieves the user gravatar image properly" do
+       post :create, user: new_user_attributes
+       expect(assigns(:user).avatar_url).to eq new_user_attributes[:avatar_url]
      end
   end
 end
