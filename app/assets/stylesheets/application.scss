@@ -19,7 +19,17 @@
 
 .user-info {
   margin-top: 9px;
+  display: inline;
 }
 .nav {
   margin-top: 5px;
+}
+.user-info .gravatar {
+  float:right;
+  display: inline;
+  padding-left: 0.5em;
+}
+.user-info div {
+  /* float:left; */
+  text-align: right!important;
 }
