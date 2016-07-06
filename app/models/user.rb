@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
             uniqueness: {case_sensitive: false},
             length: {minimum: 3, maximum: 254}
   # Validate gravatar
-  validates :gravatar_id,
-            presence: true
-            
+  #validates :gravatar_id,
+  #          presence: true
+
     has_secure_password
 end
