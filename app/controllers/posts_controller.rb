@@ -20,7 +20,7 @@ class PostsController < ApplicationController
       redirect_to [@topic, @post]
     else
       flash.now[:alert]
-      reder :new
+      render :new
     end
   end
 

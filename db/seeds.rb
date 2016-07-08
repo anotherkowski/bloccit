@@ -6,6 +6,15 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'random_data'
+# Create users
+5.times do
+  User.create!(
+  name: RandomData.random_name,
+  email: RandomData.random_email,
+  password: RandomData.random_sentence
+  )
+end
+users = User.all
 
 # Create Topics
 15.times do
@@ -19,6 +28,7 @@ topics = Topic.all
 # Create Posts
 50.times do
   Post.create!( # Adding a ! instructs the method to raise an error if there's a problem with the data we're seeding.
+  user: users.sample,
   topic: topics.sample,
   title: RandomData.random_sentence,
   body: RandomData.random_paragraph
@@ -34,7 +44,15 @@ posts = Post.all
   )
 end
 
+# Use my own email as the first test
+user = User.first
+user.update_attributes!(
+  email: 'annhnova@gmail.com'
+  password: 'password'
+)
+
 puts "Seed finished"
+puts "#{User.count} users created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
