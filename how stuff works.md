@@ -56,3 +56,8 @@ end
 200 OK
 
 <html><h1>asdf</h1></html>
+
+
+## My Favorite Stack Overflow Rails Threads
+
+https://stackoverflow.com/questions/28339025/ruby-on-rails-colon-at-back-or-front-of-variables/28339576#28339576

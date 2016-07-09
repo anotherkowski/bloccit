@@ -47,7 +47,7 @@ end
 # Use my own email as the first test
 user = User.first
 user.update_attributes!(
-  email: 'annhnova@gmail.com'
+  email: 'annhnova@gmail.com',
   password: 'password'
 )
 
