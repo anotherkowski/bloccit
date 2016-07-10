@@ -11,6 +11,5 @@ class ApplicationController < ActionController::Base
       flash[:alert] = "You must be logged in to do that"
       redirect_to new_session_path
     end
-  end
-  before_action :require_sign_in, except: :show
+  end  
   end

@@ -1,14 +1,12 @@
 require 'rails_helper'
+
 include SessionsHelper
 
 RSpec.describe PostsController, type: :controller do
-  # Checkpoint 39
   let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld")}
-  let(:my_post) {my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user)}
-  #
   let(:my_topic) { Topic.create!(name:  RandomData.random_sentence, description: RandomData.random_paragraph) }
+  let(:my_post) {my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user)}
 
-  #39
   context "guest user" do
 
     describe "GET show" do
@@ -32,6 +30,7 @@ RSpec.describe PostsController, type: :controller do
          expect(response).to redirect_to(new_session_path)
        end
      end
+
      describe "POST create" do
        it "returns http redirect" do
          post :create, topic_id: my_topic.id, post: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
@@ -64,6 +63,12 @@ RSpec.describe PostsController, type: :controller do
      end
   end
 #end
+
+context "signed-in user" do
+  before do
+    create_session(my_user)
+  end
+
   describe "GET new" do
     it "returns http success" do
       get :new, topic_id: my_topic.id
@@ -91,11 +96,6 @@ RSpec.describe PostsController, type: :controller do
       post :create, topic_id: my_topic.id, post: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
       expect(response).to redirect_to [my_topic, Post.last]
     end
-  end
-
-context "signed-in user" do
-  before do
-    create_session(my_user)
   end
 
     describe "GET #show" do
