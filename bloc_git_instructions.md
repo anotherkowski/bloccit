@@ -10,6 +10,8 @@ git push origin checkpoint-number
 git checkout master
 git merge checkpoint-number
 git push
+*to heroku*
+git push heroku master
 
 ## Before Assignment
 git checkout -b assignment-number
