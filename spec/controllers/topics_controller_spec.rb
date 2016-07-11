@@ -313,14 +313,14 @@ RSpec.describe TopicsController, type: :controller do
     describe "GET new" do
      it "returns http redirect" do
        get :new
-       expect(response).to redirect_to(new_session_path)
+       expect(response).to redirect_to(topics_path)
       end
     end
    # Copied from guest user - cannot create new topics
    describe "POST create" do
      it "returns http redirect" do
        post :create, topic: {name: RandomData.random_sentence, description: RandomData.random_paragraph}
-       expect(response).to redirect_to(new_session_path)
+       expect(response).to redirect_to(topics_path)
      end
    end
    # copied from admin user - can edit existing topics
@@ -370,7 +370,7 @@ RSpec.describe TopicsController, type: :controller do
     describe "DELETE destroy" do
       it "returns http redirect" do
         delete :destroy, {id: my_topic.id}
-        expect(response).to redirect_to(new_session_path)
+        expect(response).to redirect_to(topics_path)
       end
     end
 
