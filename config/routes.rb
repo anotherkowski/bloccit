@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # to include show, update, or edit routes
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
+  resources :labels, only: [:show]
 
   get 'about' => 'welcome#about'
 
