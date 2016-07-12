@@ -12,7 +12,7 @@
       <h3>Comments</h3>
       <%= render @post.comments %>
     </div>
-    <%= if current_user %>
+    <% if current_user %>
       <%= render 'comments/form', comment: Comment.new, post: @post %>
     <% end %>
   </div>

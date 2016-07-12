@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
   def authorize_user
     comment = Comment.find(params[:id])
     unless current_user == comment.user || current_user.admin?
-      flash[:alert] = "ou do not have permission to delete a comment."
+      flash[:alert] = "You do not have permission to delete a comment."
       redirect_to [comment.post.topic, comment.post]
     end
   end
