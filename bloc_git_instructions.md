@@ -14,7 +14,6 @@ git push
 git push heroku master
 *if you made db/seed/migration changes*
 heroku run rake db:migrate
-heroku run rake db:reset
 
 ## Before Assignment
 git checkout -b assignment-number
