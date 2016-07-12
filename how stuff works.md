@@ -61,3 +61,9 @@ end
 ## My Favorite Stack Overflow Rails Threads
 
 https://stackoverflow.com/questions/28339025/ruby-on-rails-colon-at-back-or-front-of-variables/28339576#28339576
+
+## Things to look up later
+
+- How to use rails scaffolding
+- rails "templates"?
+- build a blog on rails 
