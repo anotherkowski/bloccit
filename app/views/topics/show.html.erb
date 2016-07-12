@@ -9,6 +9,13 @@
       <%= render partial: "labels/list", locals: { labels: @topic.labels } %>
        <br />
        <%= @topic.description %>
+       <div>
+         <h3>Comments</h3>
+         <%= render partial: 'comments/comment', locals: {parent: @topic, user: current_user, comment: @topic.comments} %>
+       </div>
+       <% if current_user %>
+         <%= render 'comments/form', comment: Comment.new, locals: {parent: @topic} %>
+       <% end %>
     </p>
 <!-- Iterate over the posts belonging to @topic to display each post -->
     <% @topic.posts.each do |post| %>

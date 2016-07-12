@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   end
   # we use only: [] because we don't want to create any
   # /posts/:id routes, just posts/:post_id/comments routes
-  resources :posts, only: [] do
+  resources :posts, :topics, shallow: true do
     resources :comments, only: [:create, :destroy]
   end
   # Comments are displayed in posts #show view so we don't need index or view
