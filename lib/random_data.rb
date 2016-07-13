@@ -33,4 +33,12 @@ module RandomData
   def self.random_email
     "#{random_word}@#{random_word}.#{random_word}"
   end
+
+  def self.random_commentable
+    ["Post", "Topic"].sample
+  end
+
+  def self.random_commentable_id
+    rand(0..14)
+  end
 end

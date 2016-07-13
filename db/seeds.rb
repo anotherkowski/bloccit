@@ -36,11 +36,16 @@ topics = Topic.all
 end
 posts = Post.all
 
+# Commentable
+
+# commentables = (Topic.all + Post.all)
+
 # Create Comments
 100.times do # we call times on an Integer (a number object). This will run a given block the specified number of times, which is 100 in this case. The end result of calling times is similar to that of a loop, but in this use-case it is easier to read
   Comment.create!(
   user: users.sample,
-  post: posts.sample,
+  commentable_type: RandomData.random_commentable,
+  commentable_id: RandomData.random_commentable_id,
   body: RandomData.random_paragraph
   )
 end
