@@ -4,4 +4,6 @@ class Comment < ActiveRecord::Base
 
   validates :body, length: { minimum: 5}, presence: true
   validates :user, presence: true
+  validates :commentable_id, presence: true
+  validates :commetable_type, presence: true
 end
