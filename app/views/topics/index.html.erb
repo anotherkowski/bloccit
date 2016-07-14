@@ -8,6 +8,7 @@
           <%= link_to topic.name, topic %>
         </h4>
         <small>
+          <%= topic.comments.count %> comments | <%= topic.labels.count %> labels<br>
           <%= topic.description %>
         </small>
       </div>

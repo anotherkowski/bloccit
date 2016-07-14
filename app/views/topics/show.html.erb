@@ -37,8 +37,6 @@
     <% @topic.comments.each do |comment| %>
       <%= render partial: "comments/comment", locals: {comment: comment, commentable: @topic} %>
     <% end %>
-    <% if current_user %>
-      <%= render partial: "comments/form", locals: {commentable: @topic} %>
-    <% end %>
+    <%= render partial: "comments/form", locals: {commentable: @topic, comment: @topic.comment} %>
   </div>
 </div>

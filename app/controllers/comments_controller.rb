@@ -1,13 +1,26 @@
 class CommentsController < ApplicationController
   before_action :require_sign_in
   before_action :authorize_user, only: [:destroy]
+  before_filter :load_commentable
+
+  def index
+    @comments = @commentable.comments
+  end
+
+  def new
+    @comment = @commentable.comments.new
+  end
 
   def create
-    # @commentable = set_comment
-    @comment = @commentable.comments.build(comment_params)
-    # if @comment.save
-    #   redirect_to [:create]
-    # end
+    @comment = @commentable.comments.new(params[:comment])
+    @comment.user = current_user
+    if @comment.save
+      flash[:notice] = "Successfully created..."
+      redirect_to [@commentable]
+    else
+      flash[:alert] = "Comment unsuccessful..."
+      redirect_to [@commentable]
+    end
   end
 
   def destroy
@@ -24,7 +37,7 @@ class CommentsController < ApplicationController
 
   private
 
-  def find_commentable
+  def load_commentable
     resource, id = request.path.split('/')[1, 2]
     @commentable = resource.singularize.classify.constantize.find(id)
   end
@@ -33,9 +46,9 @@ class CommentsController < ApplicationController
     Comment.find(params[:id])
   end
 
-  def comment_params
-    params.require(:comment).permit(:body)
-  end
+  # def comment_params
+  #   params.require(:comment).permit(:body, :commentable)
+  # end
 
   def authorize_user
     comment = Comment.find(params[:id])
