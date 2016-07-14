@@ -1,54 +1,53 @@
 class CommentsController < ApplicationController
   before_action :require_sign_in
   before_action :authorize_user, only: [:destroy]
-  before_filter :load_commentable
-
-  def index
-    @comments = @commentable.comments
-  end
-
-  def new
-    @comment = @commentable.comments.new
-  end
 
   def create
-    @comment = @commentable.comments.new(params[:comment])
-    @comment.user = current_user
-    if @comment.save
+    # @comment = @commentable.comments.new(params[:comment]) #based on Rails3
+    comment = commentable.comments.new(comment_params)
+    comment.user = current_user
+    if comment.save
       flash[:notice] = "Successfully created..."
-      redirect_to [@commentable]
+      redirect_to :back
     else
       flash[:alert] = "Comment unsuccessful..."
-      redirect_to [@commentable]
+      redirect_to :back
     end
   end
 
   def destroy
-    @comment = set_comment
-    @commentable = @comment.commentable
-    if @comment.destroy
+    comment = Comment.find(params[:id])
+    if comment.destroy
        flash[:notice] = "Comment was deleted successfully."
-       redirect_to [@commentable]
+       redirect_to :back
     else
        flash[:alert] = "Comment couldn't be deleted. Try again."
-       redirect_to [@commentable]
+       redirect_to :back
     end
   end
 
   private
 
-  def load_commentable
+  # def commentable_url
+  #   if @commentable.commentable_type == "Topic"
+  #     djd
+  #   else
+  #     djl
+  #   end
+  # end
+
+  def commentable
     resource, id = request.path.split('/')[1, 2]
-    @commentable = resource.singularize.classify.constantize.find(id)
+    @commentable ||= resource.singularize.classify.constantize.find(id)
   end
 
   def set_comment
-    Comment.find(params[:id])
+    @comment ||= Comment.find(params[:id])
   end
 
-  # def comment_params
-  #   params.require(:comment).permit(:body, :commentable)
-  # end
+  def comment_params
+    params.require(:comment).permit(:body, :commentable)
+  end
 
   def authorize_user
     comment = Comment.find(params[:id])

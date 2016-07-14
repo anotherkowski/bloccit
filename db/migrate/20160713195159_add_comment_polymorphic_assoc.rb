@@ -1,4 +1,4 @@
-class AddCommentToTopics < ActiveRecord::Migration
+class AddCommentPolymorphicAssoc < ActiveRecord::Migration
   def up
     change_table :comments do |t|
       t.remove :post_id

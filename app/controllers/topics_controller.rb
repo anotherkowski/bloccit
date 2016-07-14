@@ -1,13 +1,13 @@
 class TopicsController < ApplicationController
   before_action :require_sign_in, except: [:index, :show]
   before_action :authorize_user, except: [:index, :show]
+  before_action :set_topic, only: [:edit, :update, :destroy, :show]
 
   def index
     @topics = Topic.all
   end
 
   def show
-    @topic = Topic.find(params[:id]) #display the topic that matches the id passed in URL params
   end
 
   def new
@@ -32,11 +32,9 @@ class TopicsController < ApplicationController
   end
 
   def edit
-    @topic = Topic.find(params[:id])
   end
 
   def update
-    @topic = Topic.find(params[:id])
     @topic.assign_attributes(topic_params)
 
   # Refactor: below replaced by topic_params
@@ -55,7 +53,6 @@ class TopicsController < ApplicationController
   end
 
    def destroy
-     @topic = Topic.find(params[:id])
 
      if @topic.destroy
        flash[:notice] = "\"#{@topic.name}\" was deleted successfully."
@@ -67,6 +64,10 @@ class TopicsController < ApplicationController
    end
 
    private
+
+   def set_topic
+     @topic = Topic.find(params[:id])
+   end
 
    def topic_params
      params.require(:topic).permit(:name, :description, :public)

@@ -19,6 +19,7 @@
       <% @post.comments.each do |comment| %>
         <%= render partial: "comments/comment", locals: {comment: comment, commentable: @post} %>
       <% end %>
+      <%= render partial:"comments/form", locals: {commentable: @post, comment: Comment.new} %>
     </div>
   </div>
   <% if user_is_authorized_for_post?(@post) %>
