@@ -5,10 +5,12 @@ RSpec.describe Topic, type: :model do
   let(:description) { RandomData.random_paragraph }
   let(:public) { true }
   let(:topic) { Topic.create!(name: name, description: description)}
+  let(:comment) { Comment.create!(body: "Comment Body", commentable: topic, user: user) }
 
   it { is_expected.to have_many(:posts)}
   it { is_expected.to have_many(:labelings)}
   it {is_expected.to have_many(:labels).through(:labelings)}
+  it {is_expected.to have_many(:comments)}
 
   describe "attributes" do
     it "has name, description, and public attributes" do
