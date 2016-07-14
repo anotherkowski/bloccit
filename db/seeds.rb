@@ -26,7 +26,7 @@ end
 topics = Topic.all
 
 # Create Posts
-50.times do
+100.times do
   Post.create!( # Adding a ! instructs the method to raise an error if there's a problem with the data we're seeding.
   user: users.sample,
   topic: topics.sample,
@@ -36,17 +36,30 @@ topics = Topic.all
 end
 posts = Post.all
 
-# Commentable
-
-# commentables = (Topic.all + Post.all)
-
-# Create Comments
+# Create Comments on Comments
 100.times do # we call times on an Integer (a number object). This will run a given block the specified number of times, which is 100 in this case. The end result of calling times is similar to that of a loop, but in this use-case it is easier to read
   Comment.create!(
   user: users.sample,
   commentable_type: RandomData.random_commentable,
   commentable_id: RandomData.random_commentable_id,
   body: RandomData.random_paragraph
+  )
+end
+
+# Create labels
+15.times do
+  Label.create!(
+  name: RandomData.random_word
+  )
+end
+labels = Label.all
+
+# Create Labeling association
+15.times do
+  Labeling.create!(
+  label: labels.sample,
+  labelable_type: RandomData.random_commentable,
+  labelable_id: RandomData.random_commentable_id
   )
 end
 
@@ -66,6 +79,8 @@ member = User.create!(
 )
 
 puts "Seed finished"
+puts "#{Label.count} labels created"
+puts "#{Labeling.count} labelable associations created"
 puts "#{User.count} users created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"

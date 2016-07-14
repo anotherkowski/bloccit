@@ -3,8 +3,11 @@ class CommentsController < ApplicationController
   before_action :authorize_user, only: [:destroy]
 
   def create
-    @commentable = find_commentable
+    # @commentable = set_comment
     @comment = @commentable.comments.build(comment_params)
+    # if @comment.save
+    #   redirect_to [:create]
+    # end
   end
 
   def destroy
