@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   # /posts/:id routes, just posts/:post_id/comments routes
   resources :posts, only: [] do
     resources :comments, only: [:create, :destroy]
+    post '/up-vote' => 'votes#up_vote', as: :up_vote
+    post '/down-vote' => 'votes#down_vote', as: :down_vote
   end
   # Comments are displayed in posts #show view so we don't need index or view
   # We won't give users ability to view individual comments or edits, so we don't need
