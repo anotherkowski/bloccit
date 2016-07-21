@@ -5,6 +5,7 @@ class Vote < ActiveRecord::Base
 
   validates :value, inclusion: { in: [-1, 1], message: "%{value} is not a valid vote." }, presence: true
 
+  validates :user, uniqueness: {scope: :post, message: "only one vote per user per post"}
   private
 
   def update_post

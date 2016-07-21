@@ -23,4 +23,12 @@ RSpec.describe Vote, type: :model do
        vote.save!
      end
    end
+   describe "uniqueness per user per post" do
+     it "is invalid when user has already voted on post" do
+       vote
+       new_vote = Vote.new(value: 1, post: post, user: user)
+       expect(new_vote).to_not be_valid
+     end
+
+   end
  end
