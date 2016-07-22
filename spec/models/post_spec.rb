@@ -32,10 +32,20 @@ RSpec.describe Post, type: :model do
     end
   end
 
-  describe "voting" do
+  context "voting" do
      before do
-       3.times { post.votes.create!(value: 1) }
-       2.times { post.votes.create!(value: -1) }
+      #  3.times { post.votes.create!(value: 1) }
+      #  2.times { post.votes.create!(value: -1) }
+       voter1 = User.create!(name: RandomData.random_name, email: RandomData.random_email, password: "helloworld")
+       voter2 = User.create!(name: RandomData.random_name, email: RandomData.random_email, password: "helloworld")
+       voter3 = User.create!(name: RandomData.random_name, email: RandomData.random_email, password: "helloworld")
+       voter4 = User.create!(name: RandomData.random_name, email: RandomData.random_email, password: "helloworld")
+
+       Vote.create!(user: voter1, post: post, value: 1)
+       Vote.create!(user: voter2, post: post, value: -1)
+       Vote.create!(user: voter3, post: post, value: 1)
+       Vote.create!(user: voter4, post: post, value: -1)
+
        @up_votes = post.votes.where(value: 1).count
        @down_votes = post.votes.where(value: -1).count
      end
@@ -54,39 +64,42 @@ RSpec.describe Post, type: :model do
          expect( post.points ).to eq(@up_votes - @down_votes)
        end
      end
-
      describe "#update_rank" do
        it "calculates the correct rank" do
            post.update_rank
            expect(post.rank).to eq (post.points + (post.created_at - Time.new(1970,1,1)) / 1.day.seconds)
          end
-
        it "updates the rank when an up vote is created" do
          old_rank = post.rank
          post.votes.create!(value: 1)
          expect(post.rank).to eq(old_rank + 1)
        end
-
        it "updates the rank when a down vote is created" do
          old_rank = post.rank
          post.votes.create!(value: -1)
          expect(post.rank).to eq(old_rank - 1)
        end
      end
+   end
+   describe "#create_vote after_create callback" do
+     let(:new_post) {topic.posts.new(title: title, body: body, user: user)}
 
-     describe "#create_vote after_create callback" do
-       before do
-         let(:new_post) {}
-       end
-       it "triggers #create_vote upon saving new_post" do
-
-       end
-       it "increases points of new post by 1" do
-
-       end
-       it "creates 1 vote on the new post (increase count by only 1)" do
-         
-       end
+     it "triggers #create_vote upon saving new_post" do
+       expect(new_post).to receive(:create_vote).at_least(:once)
+       new_post.save
+     end
+     it "increases points of new post by 1" do
+       expect{
+         new_post.save!
+       }.to change(new_post, :points).by(1)
+     end
+     it "creates 1 vote on the new post (increase count by only 1)" do
+       new_post.save!
+       expect(new_post.up_votes).to eq(1)
+     end
+     it "associates first vote with owner of the post" do
+       new_post.save!
+       expect(new_post.votes.first.user).to eq(user)
      end
    end
 end
