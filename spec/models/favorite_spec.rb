@@ -6,6 +6,6 @@ RSpec.describe Favorite, type: :model do
   let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
   let(:favorite) { Favorite.create!(post: post, user: user) }
 
-  it { is_expected.to belong_to(:post) }
-  it { is_expected.to belong_to(:user) }
+  it {is_expected.to belong_to(:post)}
+  it {is_expected.to belong_to(:user)}
 end

@@ -38,5 +38,8 @@ ruby "2.2.1"
  gem 'turbolinks'
  # Install bootstrap
  gem 'bootstrap-sass'
-# Install BCrypt to encrypt passwords for users
-gem 'bcrypt'
+ # Install BCrypt to encrypt passwords for users
+ gem 'bcrypt'
+
+ # Install Figaro to protect sensitive app information on GitHub
+ gem 'figaro', '1.0'
