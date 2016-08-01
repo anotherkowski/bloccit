@@ -6,6 +6,13 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'random_data'
+# Create FIRST user (me)
+first_user = User.create!(
+  name: "Ann Novakowski",
+  email: "annhnova@gmail.com",
+  password: "nopass"
+)
+
 # Create users
 5.times do
   User.create!(
