@@ -1,0 +1,8 @@
+New post titled "<%= @post.title %>"
+<%= "=" * (@post.title.length + 12) %>
+
+By: <%= @post.user.name %>
+
+<%= @post.body %>
+
+View this post online at: <%= topic_post_url(@post.topic, @post) %>

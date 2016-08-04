@@ -72,4 +72,35 @@ RSpec.describe Post, type: :model do
         end
       end
    end
+   context "after_create callback" do
+     let(:another_user) {User.create!(name: "Ann Novakowski", email: "annhnova@gmail.com", password: "helloworld")}
+
+     let(:another_post) {topic.posts.new(title: "Another post title", body: "another post body with some words and some more words like this", user: another_user)}
+
+     describe "favorite_own_post" do
+       it "triggers favorite_own_post after post is saved" do
+         expect(another_post).to receive(:favorite_own_post).at_least(:once)
+         another_post.save
+       end
+       #  it "creates new favorite for post by current user" do
+       #    # initiate new post
+       #    # expect current user has not favorited this post
+       #    # save post
+       #    # expect that current user now DOES have a favorite for this post
+       #  end
+       #  it "creates first and unique favorite for post" do
+       #    #create post
+       #    # expect post to have 1 favorite
+       #    # expect first favorite to belong to current user
+       #  end
+     end
+     describe "send_post_emails" do
+       it "triggers new_post FavoritesMailer" do
+         # create post
+         # expect that new_post mailer is triggered
+         expect(FavoriteMailer).to receive(:new_post).with(another_user,another_post).and_return(double(deliver_now: true))
+         another_post.save
+       end
+     end
+   end
 end
