@@ -33,8 +33,7 @@ RSpec.describe Post, type: :model do
     end
   end
 
-  describe "voting" do
- # #5
+  context "voting" do
      before do
        3.times { post.votes.create!(value: 1) }
        2.times { post.votes.create!(value: -1) }
@@ -42,26 +41,24 @@ RSpec.describe Post, type: :model do
        @down_votes = post.votes.where(value: -1).count
      end
 
- # #6
      describe "#up_votes" do
        it "counts the number of votes with value = 1" do
          expect( post.up_votes ).to eq(@up_votes)
        end
      end
 
- # #7
      describe "#down_votes" do
        it "counts the number of votes with value = -1" do
          expect( post.down_votes ).to eq(@down_votes)
        end
      end
 
- # #8
      describe "#points" do
        it "returns the sum of all down and up votes" do
          expect( post.points ).to eq(@up_votes - @down_votes)
        end
      end
+
      describe "#update_rank" do
         it "calculates the correct rank" do
          post.update_rank
@@ -81,4 +78,36 @@ RSpec.describe Post, type: :model do
         end
       end
    end
+
+  context "after_create callback" do
+    let(:another_user) {User.create!(name: "Ann Novakowski", email: "ann.harris@gmail.com", password: "helloworld")}
+
+    let(:another_post) {topic.posts.new(title: "Another post title", body: "another post body with some words and some more words like this", user: another_user)}
+
+    describe "favorite_own_post" do
+     it "triggers favorite_own_post after post is saved" do
+       expect(another_post).to receive(:favorite_own_post).at_least(:once)
+       another_post.save
+     end
+     #  it "creates new favorite for post by current user" do
+     #    # initiate new post
+     #    # expect current user has not favorited this post
+     #    # save post
+     #    # expect that current user now DOES have a favorite for this post
+     #  end
+     #  it "creates first and unique favorite for post" do
+     #    #create post
+     #    # expect post to have 1 favorite
+     #    # expect first favorite to belong to current user
+     #  end
+    end
+    describe "send_post_emails" do
+     it "triggers new_post FavoritesMailer" do
+       # create post
+       # expect that new_post mailer is triggered
+       expect(FavoriteMailer).to receive(:new_post).with(another_user,another_post).and_return(double(deliver_now: true))
+       another_post.save
+     end
+     end
+  end
 end
