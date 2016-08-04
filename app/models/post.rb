@@ -2,6 +2,9 @@ class Post < ActiveRecord::Base
   belongs_to :topic
   belongs_to :user
 
+  after_create :favorite_own_post
+  after_create :send_post_emails
+
   has_many :comments, dependent: :destroy
   has_many :labelings, as: :labelable
   has_many :labels, through: :labelings
@@ -32,5 +35,14 @@ class Post < ActiveRecord::Base
     new_rank = points + age_in_days
     update_attribute(:rank, new_rank)
   end
+
+  private
+    def favorite_own_post
+      Favorite.create!(post: self, user: user)
+    end
+
+    def send_post_emails
+      FavoriteMailer.new_post(self.user, self).deliver_now
+    end
 
 end
