@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  </head>
+  <body>
+    <h1>
+      <small>
+        <%= @post.title %>
+      </small>
+      <p>
+        You created a post on Bloccit. As its creator, you will now recieve updates when the post is commented on.
+      </p>
+      <p>
+        <%= link_to "View post on site", topic_post_url(@post.topic, @post) %>
+      </p>
+    </h1>
+  </body>
+</html>

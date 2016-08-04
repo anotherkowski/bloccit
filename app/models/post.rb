@@ -2,8 +2,8 @@ class Post < ActiveRecord::Base
   belongs_to :topic
   belongs_to :user
 
-  after_create :favorite_own_post
-  after_create :send_post_emails
+  # after_create :favorite_own_post
+  # after_create :send_post_emails
 
   has_many :comments, dependent: :destroy
   has_many :labelings, as: :labelable
@@ -37,12 +37,13 @@ class Post < ActiveRecord::Base
   end
 
   private
-    def favorite_own_post
-      Favorite.create!(post: self, user: user)
-    end
 
-    def send_post_emails
-      FavoriteMailer.new_post(self.user, self).deliver_now
-    end
+  def favorite_own_post
+    Favorite.create!(post: self, user: user)
+  end
+
+  def send_post_emails
+    FavoriteMailer.new_post(self.user, self).deliver_now
+  end
 
 end
