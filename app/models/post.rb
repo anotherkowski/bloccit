@@ -2,8 +2,8 @@ class Post < ActiveRecord::Base
   belongs_to :topic
   belongs_to :user
 
-  # after_create :favorite_own_post
-  # after_create :send_post_emails
+  after_create :favorite_own_post
+  after_create :send_post_emails
 
   has_many :comments, dependent: :destroy
   has_many :labelings, as: :labelable

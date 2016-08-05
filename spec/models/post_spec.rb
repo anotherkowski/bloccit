@@ -81,7 +81,6 @@ RSpec.describe Post, type: :model do
 
   context "after_create callback" do
     let(:another_user) {User.create!(name: "Ann Novakowski", email: "ann.harris@gmail.com", password: "helloworld")}
-
     let(:another_post) {topic.posts.new(title: "Another post title", body: "another post body with some words and some more words like this", user: another_user)}
 
     describe "favorite_own_post" do
