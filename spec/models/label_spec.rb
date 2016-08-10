@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Label, type: :model do
   # use factories
   let(:topic) { create(:topic) }
-  let(:user) { create(:user) }
   let(:post) { create(:post) }
 
 
