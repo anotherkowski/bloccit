@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # Comments are displayed in posts #show view so we don't need index or view
   # We won't give users ability to view individual comments or edits, so we don't need
   # to include show, update, or edit routes
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :show]
   resources :sessions, only: [:new, :create, :destroy]
   resources :labels, only: [:show]
 
