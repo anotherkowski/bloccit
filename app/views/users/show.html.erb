@@ -9,6 +9,7 @@
         </div>
       <% end %>
       <div class="media-body">
+        <!-- insert method - do posts or comments exist? -->
         <h2 class="media-heading"><%= @user.name %></h2>
         <small>
           <%= pluralize(@user.posts.count, 'post') %>,

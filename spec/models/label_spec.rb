@@ -14,7 +14,7 @@ RSpec.describe Label, type: :model do
   it { is_expected.to have_many(:posts).through(:labelings) }
 
     describe "labelings" do
-      it "allows the same lable to be associated with a different topic and post" do
+      it "allows the same label to be associated with a different topic and post" do
         topic.labels << label
         post.labels << label
 

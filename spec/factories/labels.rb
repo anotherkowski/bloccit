@@ -1,6 +1,5 @@
 FactoryGirl.define do
-   factory :post do
+   factory :label do
      name RandomData.random_sentence
-     labeling
    end
  end
