@@ -9,11 +9,19 @@
         </div>
       <% end %>
       <div class="media-body">
-        <!-- insert method - do posts or comments exist? -->
         <h2 class="media-heading"><%= @user.name %></h2>
+        <!-- insert method - do posts or comments exist? -->
         <small>
-          <%= pluralize(@user.posts.count, 'post') %>,
-          <%= pluralize(@user.comments.count, 'comment') %>
+          <% if no_posts?(current_user) %>
+            <% no_posts_message(current_user) %>
+          <% else %>
+            <%= pluralize(@user.posts.count, 'post') %>
+          <% end %>
+          <% if no_comments?(current_user) %>
+            <% no_comments_message(current_user) %>
+          <% else %>
+            <%= pluralize(@user.comments.count, 'comment') %>
+          <% end %>
         </small>
       </div>
     </div>

@@ -26,15 +26,13 @@ RSpec.describe Label, type: :model do
 
     describe ".update_labels" do
       it "takes a comma delimted string and returns an array of Labels"  do
-        label_first = label1.name
-        label_second = label2.name
-        labels_string = "#{label_first}, #{label_second}"
-        labels_array =[label1.name, label2.name]
+        labels_string = "#{label1.name}, #{label2.name}"
+        labels_array =[label1, label2]
         expect(Label.update_labels(labels_string)).to eq(labels_array)
       end
     end
-    describe "debug" do
-      it "prints label values from factory" do
+    describe "factor" do
+      it "creates unique values for each factory instance" do
         label_first = label1.name
         label_second = label2.name
         expect(label_first).not_to eq(label_second)

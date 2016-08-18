@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  let(:name) { RandomData.random_sentence }
-  let(:description) { RandomData.random_paragraph }
-  let(:title) { RandomData.random_sentence }
-  let(:body) { RandomData.random_paragraph }
 
   # use factories
   let(:topic) { create(:topic) }
@@ -30,7 +26,7 @@ RSpec.describe Post, type: :model do
 
   describe "attributes" do
     it "has title, body, and user attributes" do
-      expect(post).to have_attributes(title: post.title, body: post.body, user: user)
+      expect(post).to have_attributes(title: post.title, body: post.body, user: post.user)
     end
   end
 

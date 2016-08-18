@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include UsersHelper
+
   def new
     @user = User.new
   end
@@ -21,5 +23,24 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.visible_to(current_user)
+  end
+
+  private
+
+  def no_posts?(user)
+    @user = User.find(params[:id])
+    user.posts.count > 0
+  end
+  def no_posts_message(user)
+    @user = User.find(params[:id])
+    "#{user.name} has not submitted any posts yet.}"
+  end
+  def no_comments?(user)
+    @user = User.find(params[:id])
+    user.comments.count > 0
+  end
+  def no_comments_message(user)
+    @user = User.find(params[:id])
+    "#{user.name} has not submitted any comments yet.}"
   end
 end
