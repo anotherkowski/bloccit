@@ -9,26 +9,26 @@
         </div>
       <% end %>
       <div class="media-body">
-        <h2 class="media-heading"><%= @user.name %></h2>
         <!-- insert method - do posts or comments exist? -->
+        <h2 class="media-heading"><%= @user.name %></h2>
         <small>
-          <% if no_posts?(current_user) %>
-            <% no_posts_message(current_user) %>
-          <% else %>
-            <%= pluralize(@user.posts.count, 'post') %>
-          <% end %>
-          <% if no_comments?(current_user) %>
-            <% no_comments_message(current_user) %>
-          <% else %>
-            <%= pluralize(@user.comments.count, 'comment') %>
-          <% end %>
+          <%= pluralize(@user.posts.count, 'post') %>,
+          <%= pluralize(@user.comments.count, 'comment') %>
         </small>
       </div>
     </div>
   </div>
 </div>
 <h2>Posts</h2>
-<%= render @user.posts %>
+<% if @user.posts.empty? %>
+  <p><%= @user.name %> has no submitted posts</p>
+<% else %>
+  <%= render @user.posts %>
+<% end %>
 
 <h2>Comments</h2>
-<%= render @user.comments %>
+<% if @user.comments.empty? %>
+  <p><%= @user.name %> has no submitted comments</p>
+<% else %>
+  <%= render @user.comments %>
+<% end %>
