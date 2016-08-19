@@ -19,17 +19,19 @@
     </div>
   </div>
 </div>
-<h2>Posts</h2>
-<% if @user.posts.empty? %>
-  <p><%= @user.name %> has no submitted posts</p>
+<% if has_posts?(current_user) %>
+  <br>
+  <p><%= @user.name %> has no submitted posts.</p>
 <% else %>
-  <%= render @user.posts %>
+    <h2>Posts</h2>
+    <%= render @user.posts %>
 <% end %>
 
-<h2>Comments</h2>
-<% if @user.comments.empty? %>
-  <p><%= @user.name %> has no submitted comments</p>
+<% if has_comments?(current_user) %>
+  <br>
+  <p><%= @user.name %> has no submitted comments.</p>
 <% else %>
+  <h2>Comments</h2>
   <%= render @user.comments %>
 <% end %>
 
