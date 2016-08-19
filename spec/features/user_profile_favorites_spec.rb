@@ -5,11 +5,30 @@ feature 'favorited posts showing up on user profile' do
     let(:user) { create(:user) }
     let(:posts) { 5.times.map{ create(:post) } }
     before { posts.each {|post| create(:favorite, user: user, post: post)} }
-    scenario 'they show up that' do
+
+    scenario 'they show up' do
       visit("/users/#{user.id}")
       posts.each do |post|
         expect(page).to have_content(post.title)
       end
+    end
+    scenario 'they include author gravatars' do
+
+    end
+    scenario 'they include comments count' do
+
+    end
+    scenario 'they include vote count' do
+      
+    end
+  end
+  context 'unfavorited posts do not show up on user profile' do
+    let(:user) { create(:user) }
+    let(:unfavorite_post) { create(:post) }
+
+    scenario 'they do not show up' do
+      visit("/users/#{user.id}")
+      expect(page).not_to have_content(unfavorite_post.title)
     end
   end
 end

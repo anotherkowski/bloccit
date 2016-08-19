@@ -13,7 +13,8 @@
         <h2 class="media-heading"><%= @user.name %></h2>
         <small>
           <%= pluralize(@user.posts.count, 'post') %>,
-          <%= pluralize(@user.comments.count, 'comment') %>
+          <%= pluralize(@user.comments.count, 'comment') %>,
+          <%= pluralize(@user.favorites.count, 'favorite') %>
         </small>
       </div>
     </div>
@@ -35,9 +36,10 @@
   <%= render @user.comments %>
 <% end %>
 
-<h2>Favorited Posts</h2>
-<% if @user.favorites.empty? %>
-  <p><%= @user.name %> has not favorited any posts</p>
+<% if has_favorites?(current_user) %>
+  <br>
+  <p><%= @user.name %> has not favorited any posts.</p>
 <% else %>
+  <h2>Favorited Posts</h2>
   <%= render @user.favorited_posts %>
 <% end %>
