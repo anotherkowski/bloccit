@@ -12,14 +12,17 @@ feature 'favorited posts showing up on user profile' do
         expect(page).to have_content(post.title)
       end
     end
-    scenario 'they include author gravatars' do
-
+    scenario 'includes OP author gravatars' do
+      visit("/users/#{user.id}")
+      posts.each do |post|
+        expect(page).to have_css("img[src*='#{post.user.avatar_url(35)}']")
+      end
     end
-    scenario 'they include comments count' do
-
-    end
-    scenario 'they include vote count' do
-      
+    scenario 'includes vote count' do
+      visit("/users/#{user.id}")
+      posts.each do |post|
+        expect(page).to have_content(post.votes.count)
+      end
     end
   end
   context 'unfavorited posts do not show up on user profile' do

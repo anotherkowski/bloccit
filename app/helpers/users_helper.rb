@@ -9,4 +9,5 @@ module UsersHelper
 
   def has_favorites?(user)
     @user.favorites.empty?
+  end
 end
