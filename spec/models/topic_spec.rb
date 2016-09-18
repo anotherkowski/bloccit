@@ -26,6 +26,18 @@ RSpec.describe Topic, type: :model do
       @private_topic = Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph, public: false)
     end
 
+    describe "publicly_viewable" do
+      it "returns all public topics" do
+        expect(Topic.)
+      end
+    end
+    describe "privately_viewable" do
+      it "returns all private topics" do
+        
+      end
+
+    end
+
     describe "visible_to(user)" do
       it "returns all topics if the user is present" do
         user = User.new
