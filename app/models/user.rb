@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
 
   before_save {self.email = email.downcase if email.present?}
   before_save {self.role ||= :member}
+
+  before_create :generate_auth_token
+
   # Validate name
   validates :name, length: {minimum: 1, maximum: 100}, presence: true
   # Validate password
@@ -17,16 +20,23 @@ class User < ActiveRecord::Base
             uniqueness: {case_sensitive: false},
             length: {minimum: 3, maximum: 254}
 
-    has_secure_password
+  has_secure_password
 
-    enum role: [:member, :admin]
+  enum role: [:member, :admin]
 
-    def favorite_for(post)
-      favorites.where(post_id: post.id).first
+  def favorite_for(post)
+    favorites.where(post_id: post.id).first
+  end
+
+  def avatar_url(size)
+    gravatar_id = Digest::MD5::hexdigest(self.email).downcase
+   "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
+  end
+
+  def generate_auth_token
+    loop do
+      self.auth_token = SecureRandom.base64(64)
+      break unless User.find_by(auth_token: auth_token)
     end
-
-    def avatar_url(size)
-      gravatar_id = Digest::MD5::hexdigest(self.email).downcase
-     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
-    end
+  end
 end
