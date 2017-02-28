@@ -14,6 +14,21 @@ require 'rails_helper'
        get :show, id: my_topic.id
        expect(response).to have_http_status(:success)
      end
+     # 49
+     it "PUT update returns http unauthenticated" do
+       put :update, id: my_topic.id, topic: {name: "Topic Name", description: "Topic Description"}
+       expect(response).to have_http_status(401)
+     end
+
+     it "POST create returns http unauthenticated" do
+       post :create, topic: {name: "Topic Name", description: "Topic Description"}
+       expect(response).to have_http_status(401)
+     end
+
+     it "DELETE destroy returns http unauthenticated" do
+       delete :destroy, id: my_topic.id
+       expect(response).to have_http_status(401)
+     end
    end
 
    context "unauthorized user" do
@@ -29,6 +44,21 @@ require 'rails_helper'
      it "GET show returns http success" do
        get :show, id: my_topic.id
        expect(response).to have_http_status(:success)
+     end
+     #49
+     it "PUT update returns http forbidden" do
+       put :update, id: my_topic.id, topic: {name: "Topic Name", description: "Topic Description"}
+       expect(response).to have_http_status(403)
+     end
+
+     it "POST create returns http forbidden" do
+       post :create, topic: {name: "Topic Name", description: "Topic Description"}
+       expect(response).to have_http_status(403)
+     end
+
+     it "DELETE destroy returns http forbidden" do
+       delete :destroy, id: my_topic.id
+       expect(response).to have_http_status(403)
      end
    end
  end

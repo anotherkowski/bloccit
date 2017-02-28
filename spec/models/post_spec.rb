@@ -30,12 +30,12 @@ RSpec.describe Post, type: :model do
 
   describe "attributes" do
     it "has title, body, and user attributes" do
-      expect(post).to have_attributes(title: post.title, body: post.body, user: user)
+      expect(post).to have_attributes(title: post.title, body: post.body, user: post.user)
     end
   end
 
   describe "voting" do
-
+ # #5
      before do
        3.times { post.votes.create!(value: 1) }
        2.times { post.votes.create!(value: -1) }

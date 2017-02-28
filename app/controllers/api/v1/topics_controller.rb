@@ -12,4 +12,14 @@ class Api::V1::TopicsController < Api::V1::BaseController
     topic = Topic.find(params[:id])
     render json: topic, status: 200
   end
+
+  def update
+  end
+
+  def create
+  end
+
+  def destroy
+  end
+  
 end
