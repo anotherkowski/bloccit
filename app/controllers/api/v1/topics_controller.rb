@@ -1,5 +1,5 @@
 class Api::V1::TopicsController < Api::V1::BaseController
-  
+
   before_action :authenticate_user, except: [:index, :show]
   before_action :authorize_user, except: [:index, :show]
 
@@ -12,6 +12,7 @@ class Api::V1::TopicsController < Api::V1::BaseController
     topic = Topic.find(params[:id])
     render json: topic.to_json, status: 200
   end
+
   def update
     topic = Topic.find(params[:id])
 
@@ -42,7 +43,9 @@ class Api::V1::TopicsController < Api::V1::BaseController
       render json: {error: "Topic destroy failed", status: 400}, status: 400
     end
   end
+  
   private
+
   def topic_params
     params.require(:topic).permit(:name, :description, :public)
   end
