@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  let(:name) { RandomData.random_sentence }
-  let(:description) { RandomData.random_paragraph }
-  let(:title) { RandomData.random_sentence }
-  let(:body) { RandomData.random_paragraph }
+  # let(:name) { RandomData.random_sentence }
+  # let(:description) { RandomData.random_paragraph }
+  # let(:title) { RandomData.random_sentence }
+  # let(:body) { RandomData.random_paragraph }
 
   # use factories
   let(:topic) { create(:topic) }
@@ -35,7 +35,7 @@ RSpec.describe Post, type: :model do
   end
 
   describe "voting" do
- # #5
+
      before do
        3.times { post.votes.create!(value: 1) }
        2.times { post.votes.create!(value: -1) }
