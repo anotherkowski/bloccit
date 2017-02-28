@@ -121,7 +121,7 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
       end
 
       it "deletes my_topic" do
-        # #19
+        # #19git b
         expect{ Topic.find(my_topic.id) }.to raise_exception(ActiveRecord::RecordNotFound)
       end
     end
