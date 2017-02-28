@@ -4,7 +4,6 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
   let(:my_user) { create(:user) }
   let(:my_topic) { create(:topic) }
 
-  # #20
   context "unauthenticated user" do
     it "GET index returns http success" do
       get :index
@@ -37,7 +36,6 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
       controller.request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(my_user.auth_token)
     end
 
-    # #21
     it "GET index returns http success" do
       get :index
       expect(response).to have_http_status(:success)
@@ -62,8 +60,8 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
       expect(response).to have_http_status(403)
     end
   end
+
   context "authenticated and authorized users" do
-    # #16
     before do
       my_user.admin!
       controller.request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(my_user.auth_token)
@@ -81,7 +79,6 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
         expect(response.content_type).to eq 'application/json'
       end
 
-      # #17
       it "updates a topic with the correct attributes" do
         updated_topic = Topic.find(my_topic.id)
         expect(response.body).to eq(updated_topic.to_json)
@@ -107,7 +104,6 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
     describe "DELETE destroy" do
       before { delete :destroy, id: my_topic.id }
 
-      # #18
       it "returns http success" do
         expect(response).to have_http_status(:success)
       end
@@ -121,7 +117,6 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
       end
 
       it "deletes my_topic" do
-        # #19git b
         expect{ Topic.find(my_topic.id) }.to raise_exception(ActiveRecord::RecordNotFound)
       end
     end
