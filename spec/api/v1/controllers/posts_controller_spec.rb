@@ -12,7 +12,7 @@ require 'rails_helper'
     end
 
     it "POST create returns http unauthenticated" do
-      put :update, topic_id: my_topic.id, id: my_post.id, post: {title: "new title", body: "new body"}
+      put :create, topic_id: my_topic.id, id: my_post.id, post: {title: "new title", body: "new body"}
       expect(response).to have_http_status(401)
     end
 
@@ -23,6 +23,23 @@ require 'rails_helper'
    end
 
    context "unauthorized user" do
+     before do
+       controller.request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(my_user.auth_token)
+     end
 
+     it "PUT update returns http forbidden" do
+       put :update, topic_id: my_topic.id, id: my_post.id, post: {title: "Post Name", body: "Post Description" }
+       expect(response).to have_http_status(403)
+     end
+
+     it "POST create returns http forbidden" do
+       put :create, topic_id: my_topic.id, id: my_post.id, post: {title: "new title", body: "new body"}
+       expect(response).to have_http_status(403)
+     end
+
+     it "DELETE destroy returns http forbidden" do
+       delete :destroy, topic_id: my_topic.id, id: my_post.id, post: {title: "Post Name", body: "Post Description" }
+       expect(response).to have_http_status(403)
+     end
    end
 end
