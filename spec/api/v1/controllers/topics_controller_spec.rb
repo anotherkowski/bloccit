@@ -45,6 +45,7 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
       get :show, id: my_topic.id
       expect(response).to have_http_status(:success)
     end
+
     it "PUT update returns http forbidden" do
       put :update, id: my_topic.id, topic: {name: "Topic Name", description: "Topic Description"}
       expect(response).to have_http_status(403)
@@ -84,6 +85,7 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
         expect(response.body).to eq(updated_topic.to_json)
       end
     end
+    
     describe "POST create" do
       before { post :create, topic: {name: @new_topic.name, description: @new_topic.description} }
 
