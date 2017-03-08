@@ -3,7 +3,6 @@ require 'rails_helper'
   RSpec.describe Api::V1::PostsController, type: :controller do
    let(:my_user) { create(:user) }
    let(:my_topic) { create(:topic) }
-  #let(:my_post) { create(:post, topic: my_topic, user: my_user)}
    let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
 
    context "unauthenticated user" do
@@ -71,7 +70,6 @@ require 'rails_helper'
      describe "POST create" do
        before {
          put :create, topic_id: my_topic.id, post: {title: @new_post.title, body: @new_post.body}
-        #  post :create, topic_id: my_topic.id, post: { title: "new title", body: "new body" }
        }
 
        it "returns http success" do

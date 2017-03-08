@@ -26,7 +26,7 @@ class Api::V1::PostsController < Api::V1::BaseController
   def create
     topic = Topic.find(params[:topic_id])
     post = topic.posts.new(post_params)
-    post.user = @current_user
+  #  post.user = @current_user
 
     if post.save
       render json: post.to_json, status: 201
