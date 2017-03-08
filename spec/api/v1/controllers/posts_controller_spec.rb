@@ -22,7 +22,4 @@ require 'rails_helper'
     end
    end
 
-   context "unauthorized user" do
-
-   end
 end
